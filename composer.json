@@ -1,0 +1,21 @@
+{
+    "name": "softdin/servicio",
+    "version": "12.0.44",
+    "description": "Libreria de funciones SOFTDIN",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "softdin\\servicio\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "deivibarra",
+            "email": "deivibarra@yahoo.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {},
+    "_comments": "comando para ejecutar las versiones despues de cambiar la git tag V12.0.40 -m 'Version 12.0.40'  despues ejecutar este comando git push --tags"
+}
