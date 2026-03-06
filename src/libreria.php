@@ -1,5 +1,5 @@
 <?php
- 
+
 namespace softdin\servicio;
 
 use Exception;
@@ -7,14 +7,29 @@ use Carbon\Carbon;
 use DateTime;
 use softdin\servicio\Enum\EnumTipoPago;
 
+/**
+ * Clase de utilidades con métodos estáticos para operaciones matemáticas,
+ * manejo de cadenas, fechas, validaciones y formateo de datos.
+ */
 class libreria
 {
-
+    /**
+     * Retorna el mensaje de bienvenida de la empresa.
+     *
+     * @return string Mensaje de bienvenida.
+     */
     public static function myEmpresa()
     {
         return 'Bienvenidos a Softdin';
     }
 
+    /**
+     * Verifica si la cadena contiene al menos uno de los caracteres del arreglo.
+     *
+     * @param string $cadena Cadena a buscar.
+     * @param array  $arreglo Arreglo de caracteres o subcadenas a verificar.
+     * @return bool True si existe alguno, false en caso contrario.
+     */
     public static function existeCaracter($cadena, $arreglo)
     {
         foreach ($arreglo as $cad) {
@@ -25,6 +40,13 @@ class libreria
         return false;
     }
 
+    /**
+     * Verifica que los paréntesis en la cadena estén correctamente balanceados.
+     *
+     * @param string $cadena Cadena a verificar.
+     * @return bool True si están balanceados, false en caso contrario.
+     * @throws \Exception Si ocurre un error durante la verificación.
+     */
     public static function verificarParentesis($cadena)
     {
         try {
@@ -57,6 +79,13 @@ class libreria
         }
     }
 
+    /**
+     * Verifica que los corchetes en la cadena estén correctamente balanceados.
+     *
+     * @param string $cadena Cadena a verificar.
+     * @return bool True si están balanceados, false en caso contrario.
+     * @throws \Exception Si ocurre un error durante la verificación.
+     */
     public static function verificarCorchete($cadena)
     {
         try {
@@ -89,6 +118,12 @@ class libreria
         }
     }
 
+    /**
+     * Verifica si el valor es un número entero.
+     *
+     * @param mixed $numero Valor a verificar.
+     * @return bool True si es entero, false en caso contrario.
+     */
     public static function esNumeroEntero($numero)
     {
         $isNum = is_numeric($numero);
@@ -99,6 +134,12 @@ class libreria
         return $isNum;
     }
 
+    /**
+     * Redondea el número al entero más próximo, redondeando hacia arriba si hay decimales.
+     *
+     * @param float|int $num Número a redondear.
+     * @return int Número entero redondeado.
+     */
     public static function redondearAlProximoNumero($num): int
     {
         $trun = (int) round((float) $num, 0, PHP_ROUND_HALF_UP);
@@ -110,6 +151,12 @@ class libreria
         return $trun;
     }
 
+    /**
+     * Verifica si el carácter es un operador (+, -, *, /, %, ^, =, paréntesis o corchetes).
+     *
+     * @param string $operador Carácter a verificar.
+     * @return bool True si es operador, false en caso contrario.
+     */
     public static function esUnOperador($operador)
     {
         $delimitadores = "+-*/%^=()[]";
@@ -119,6 +166,12 @@ class libreria
         return false;
     }
 
+    /**
+     * Verifica si el carácter es un operador matemático básico (+, -, *, /).
+     *
+     * @param string $operador Carácter a verificar.
+     * @return bool True si es operador matemático, false en caso contrario.
+     */
     public static function esUnOperadorMatematico($operador)
     {
         $delimitadores = "+-*/";
@@ -128,11 +181,24 @@ class libreria
         return false;
     }
 
+    /**
+     * Verifica si el número es par.
+     *
+     * @param int $n Número a verificar.
+     * @return bool True si es par, false en caso contrario.
+     */
     public static function esPar($n)
     {
         return ($n % 2) === 0;
     }
 
+    /**
+     * Verifica si dos operadores pueden estar adyacentes en una expresión.
+     *
+     * @param string $opr1 Primer operador.
+     * @param string $opr2 Segundo operador.
+     * @return string "true" si es válida la combinación, cadena vacía en caso contrario.
+     */
     public static function esUnOperador2($opr1, $opr2)
     {
         $operadores = [
@@ -156,6 +222,13 @@ class libreria
         return "";
     }
 
+    /**
+     * Elimina espacios múltiples consecutivos de la cadena.
+     *
+     * @param string|null $cadena Cadena a limpiar.
+     * @return string|null Cadena con espacios simples, o null si la entrada es null.
+     * @throws \Exception Si ocurre un error durante el procesamiento.
+     */
     public static function limpiarCadena($cadena)
     {
         try {
@@ -170,6 +243,15 @@ class libreria
         }
     }
 
+    /**
+     * Recorre la fecha según el período de cuota y número de cuotas.
+     *
+     * @param \Carbon\Carbon $fecha Fecha inicial.
+     * @param string         $periodocuota Período (MENSUAL o QUINCENAL).
+     * @param int            $numerocuotas Número de cuotas.
+     * @return \Carbon\Carbon Fecha resultante.
+     * @throws Exception Si ocurre un error durante el cálculo.
+     */
     public static function recorreFecha($fecha, $periodocuota, $numerocuotas)
     {
         try {
@@ -197,6 +279,12 @@ class libreria
         }
     }
 
+    /**
+     * Obtiene el primer día del mes de la fecha dada.
+     *
+     * @param mixed $fecha Fecha (string u objeto Carbon/DateTime).
+     * @return \Carbon\Carbon Primer día del mes.
+     */
     public static function inicioMes($fecha)
     {
         // Convierte la fecha a objeto Carbon
@@ -206,6 +294,12 @@ class libreria
         return $fechaCarbon->firstOfMonth();
     }
 
+    /**
+     * Obtiene el último día del mes de la fecha dada.
+     *
+     * @param mixed $fecha Fecha (string u objeto Carbon/DateTime).
+     * @return \Carbon\Carbon Último día del mes.
+     */
     public static function finMes($fecha)
     {
         // Convierte la fecha a objeto Carbon
@@ -215,11 +309,27 @@ class libreria
         return $fechaCarbon->endOfMonth();
     }
 
+    /**
+     * Obtiene la fecha del fin de la primera quincena (día 15 del mes).
+     *
+     * @param DateTime $fecha Fecha de referencia.
+     * @return DateTime Fecha del día 15 del mes.
+     */
     public static function finPrimeraQuincena(DateTime $fecha)
     {
         return DateTime::createFromFormat('d/m/Y', '15/' . $fecha->format('m/Y'));
     }
 
+    /**
+     * Calcula la fecha de inicio del análisis según los rangos de corte y movimiento.
+     *
+     * @param DateTime $fechaingresoCorte  Fecha de ingreso del corte.
+     * @param DateTime $fechaterminoCorte  Fecha de término del corte.
+     * @param DateTime $fechaingresoMV     Fecha de ingreso del movimiento.
+     * @param DateTime $fechaterminoMV     Fecha de término del movimiento.
+     * @return DateTime Fecha de inicio del análisis.
+     * @throws \Exception Si ocurre un error durante el cálculo.
+     */
     public static function fechaInicioAnalisis(DateTime $fechaingresoCorte, DateTime $fechaterminoCorte, DateTime $fechaingresoMV, DateTime $fechaterminoMV)
     {
         try {
@@ -236,6 +346,16 @@ class libreria
         }
     }
 
+    /**
+     * Calcula la fecha de término del análisis según los rangos de corte y movimiento.
+     *
+     * @param DateTime $fechaingresoCorte  Fecha de ingreso del corte.
+     * @param DateTime $fechaterminoCorte  Fecha de término del corte.
+     * @param DateTime $fechaingresoMV     Fecha de ingreso del movimiento.
+     * @param DateTime $fechaterminoMV     Fecha de término del movimiento.
+     * @return DateTime Fecha de término del análisis.
+     * @throws \Exception Si ocurre un error durante el cálculo.
+     */
     public static function fechaTerminoAnalisis(DateTime $fechaingresoCorte, DateTime $fechaterminoCorte, DateTime $fechaingresoMV, DateTime $fechaterminoMV)
     {
         try {
@@ -252,16 +372,37 @@ class libreria
         }
     }
 
+    /**
+     * Obtiene el número de días del mes de la fecha dada.
+     *
+     * @param string|DateTime $fecha Fecha de referencia.
+     * @return string Número de días del mes.
+     */
     public static function diasEnMes($fecha)
     {
         return (new DateTime($fecha))->format('t');
     }
 
+    /**
+     * Calcula el total de días entre dos fechas (inclusive).
+     *
+     * @param DateTime $fechaini Fecha de inicio.
+     * @param DateTime $fechafin Fecha de fin.
+     * @return int Número total de días.
+     */
     public static function totalDias($fechaini, $fechafin)
     {
         return (int) $fechafin->diff($fechaini)->format('%a') + 1;
     }
 
+    /**
+     * Calcula los días contables entre dos fechas según reglas contables.
+     *
+     * @param DateTime $fechaini Fecha de inicio.
+     * @param DateTime $fechafin Fecha de fin.
+     * @return int Total de días contables.
+     * @throws \Exception Si ocurre un error durante el cálculo.
+     */
     public static function CompletarDiasCONTABLE($fechaini, $fechafin)
     {
         try {
@@ -288,6 +429,13 @@ class libreria
         }
     }
 
+    /**
+     * Calcula la edad en años a partir de la fecha de nacimiento.
+     *
+     * @param DateTime $fechanacimiento Fecha de nacimiento.
+     * @return int Edad en años.
+     * @throws \Exception Si ocurre un error durante el cálculo.
+     */
     public static function LaEdad($fechanacimiento)
     {
         try {
@@ -298,6 +446,17 @@ class libreria
         }
     }
 
+    /**
+     * Cuenta los días laborables entre fechas según el tipo de pago.
+     *
+     * @param DateTime $fechaingresoCorte  Fecha de ingreso del corte.
+     * @param DateTime $fechaterminoCorte  Fecha de término del corte.
+     * @param DateTime $fechaingresoMV     Fecha de ingreso del movimiento.
+     * @param DateTime $fechaterminoMV     Fecha de término del movimiento.
+     * @param int      $tipopago           Tipo de pago (EnumTipoPago::COMERCIAL o CALENDARIO).
+     * @return int Número de días.
+     * @throws \Exception Si ocurre un error durante el cálculo.
+     */
     public static function ContarDias(DateTime $fechaingresoCorte, DateTime $fechaterminoCorte, DateTime $fechaingresoMV, DateTime $fechaterminoMV, $tipopago): int
     {
         try {
@@ -324,6 +483,15 @@ class libreria
         }
     }
 
+    /**
+     * Calcula la fecha término sumando días a la fecha de ingreso según el tipo de pago.
+     *
+     * @param DateTime $fechaingresoMV Fecha de ingreso del movimiento.
+     * @param int      $dias           Número de días a sumar.
+     * @param int      $tipopago       Tipo de pago (EnumTipoPago::COMERCIAL o CALENDARIO).
+     * @return DateTime Fecha resultante.
+     * @throws \Exception Si ocurre un error durante el cálculo.
+     */
     public static function ContarDiasTP($fechaingresoMV, $dias, $tipopago)
     {
         try {
@@ -340,6 +508,13 @@ class libreria
         }
     }
 
+    /**
+     * Reemplaza las comas por puntos en la cadena (formato numérico).
+     *
+     * @param string $cadena Cadena con números (puede usar coma como decimal).
+     * @return string Cadena con punto como separador decimal, o "0" si está vacía.
+     * @throws \Exception Si ocurre un error durante el procesamiento.
+     */
     public static function CambiarComaPunto($cadena)
     {
         try {
@@ -354,6 +529,14 @@ class libreria
         }
     }
 
+    /**
+     * Redondea el valor al múltiplo más cercano.
+     *
+     * @param float|int $valor    Valor a redondear.
+     * @param float|int $multiplo Múltiplo base.
+     * @return float|int Valor redondeado al múltiplo.
+     * @throws \Exception Si ocurre un error durante el cálculo.
+     */
     public static function Multiplos($valor, $multiplo)
     {
         try {
@@ -364,6 +547,15 @@ class libreria
         }
     }
 
+    /**
+     * Calcula múltiplos para PILA según si el salario es igual al SMLV.
+     *
+     * @param float|int $valor                       Valor a procesar.
+     * @param float|int $multiplo                    Múltiplo base.
+     * @param bool      $SalarioBasicoEsIgualAlSMLV  Si el salario básico es igual al SMLV.
+     * @return float|int Valor calculado.
+     * @throws \Exception Si ocurre un error durante el cálculo.
+     */
     public static function MultiplosPILA_SMLV($valor, $multiplo, $SalarioBasicoEsIgualAlSMLV)
     {
         try {
@@ -382,7 +574,17 @@ class libreria
         }
     }
 
-
+    /**
+     * Calcula múltiplos PILA para novedades según salario, SMLV y días.
+     *
+     * @param float|int $valor        Valor a procesar.
+     * @param float|int $salario      Salario base.
+     * @param float|int $SMLV         Salario Mínimo Legal Vigente.
+     * @param int       $dias         Número de días.
+     * @param int       $NoNovedades  Número de novedades.
+     * @return float|int Valor calculado.
+     * @throws \Exception Si ocurre un error durante el cálculo.
+     */
     public static function MultiplosPILA_NOVEDAD($valor, $salario, $SMLV, $dias, $NoNovedades)
     {
         try {
@@ -429,6 +631,14 @@ class libreria
         }
     }
 
+    /**
+     * Redondea el valor hacia arriba al múltiplo más cercano (PILA).
+     *
+     * @param float|int $valor    Valor a redondear.
+     * @param float|int $multiplo Múltiplo base.
+     * @return float|int Valor redondeado al múltiplo superior.
+     * @throws \Exception Si ocurre un error durante el cálculo.
+     */
     public static function MultiplosPILA($valor, $multiplo)
     {
         try {
@@ -443,6 +653,14 @@ class libreria
         }
     }
 
+    /**
+     * Busca la posición de la primera ocurrencia de una palabra en la cadena.
+     *
+     * @param string $cadena  Cadena donde buscar.
+     * @param string $palabra Palabra a buscar.
+     * @return int Índice de la primera ocurrencia, o -1 si no se encuentra.
+     * @throws \Exception Si ocurre un error durante la búsqueda.
+     */
     public static function BuscandoPosicionPalabraCadena($cadena, $palabra)
     {
         try {
@@ -461,6 +679,14 @@ class libreria
         }
     }
 
+    /**
+     * Busca la posición de la primera ocurrencia de un carácter en la cadena.
+     *
+     * @param string $cadena   Cadena donde buscar.
+     * @param string $caracter Carácter a buscar.
+     * @return int Índice de la primera ocurrencia, o -1 si no se encuentra.
+     * @throws \Exception Si ocurre un error durante la búsqueda.
+     */
     public static function BuscandoPosicionCaracterCadena($cadena, $caracter)
     {
         try {
@@ -475,6 +701,15 @@ class libreria
         }
     }
 
+    /**
+     * Busca la posición de la n-ésima ocurrencia de un carácter en la cadena.
+     *
+     * @param string $cadena   Cadena donde buscar.
+     * @param string $caracter Carácter a buscar.
+     * @param int    $posicion Número de ocurrencia (1 = primera, 2 = segunda, etc.).
+     * @return int Índice de la ocurrencia, o -1 si no se encuentra.
+     * @throws \Exception Si ocurre un error durante la búsqueda.
+     */
     public static function BuscandoPosicionCaracterCadena_POSICION($cadena, $caracter, $posicion)
     {
         try {
@@ -493,6 +728,14 @@ class libreria
         }
     }
 
+    /**
+     * Verifica si la palabra existe en la cadena.
+     *
+     * @param string $cadena  Cadena donde buscar.
+     * @param string $palabra Palabra a buscar.
+     * @return bool True si existe, false en caso contrario.
+     * @throws \Exception Si ocurre un error durante la búsqueda.
+     */
     public static function ExistePalabraCadena($cadena, $palabra)
     {
         try {
@@ -502,6 +745,14 @@ class libreria
         }
     }
 
+    /**
+     * Cuenta cuántas veces aparece un carácter en la cadena.
+     *
+     * @param string $cadena   Cadena donde buscar.
+     * @param string $caracter Carácter a contar.
+     * @return int Número de ocurrencias.
+     * @throws \Exception Si ocurre un error durante el conteo.
+     */
     public static function CuantosCaracterCadena($cadena, $caracter)
     {
         try {
@@ -517,6 +768,13 @@ class libreria
         }
     }
 
+    /**
+     * Elimina la primera ocurrencia de una palabra de la cadena.
+     *
+     * @param string $cadena  Cadena original.
+     * @param string $palabra Palabra a eliminar.
+     * @return string Cadena sin la palabra (si existía).
+     */
     public static function EliminarPalabraCadena($cadena, $palabra)
     {
         $posicion = self::BuscandoPosicionPalabraCadena($cadena, $palabra);
@@ -526,6 +784,14 @@ class libreria
         return $cadena;
     }
 
+    /**
+     * Rellena la cadena con espacios a la izquierda hasta alcanzar la longitud especificada.
+     *
+     * @param string $cadena    Cadena a rellenar.
+     * @param int    $longitud  Longitud deseada.
+     * @return string Cadena rellenada.
+     * @throws \Exception Si ocurre un error durante el procesamiento.
+     */
     public static function RellenarEspaciosIzquierda($cadena, $longitud)
     {
         try {
@@ -538,6 +804,14 @@ class libreria
         }
     }
 
+    /**
+     * Rellena la cadena con espacios a la derecha hasta alcanzar la longitud especificada.
+     *
+     * @param string $cadena    Cadena a rellenar.
+     * @param int    $longitud  Longitud deseada.
+     * @return string Cadena rellenada.
+     * @throws \Exception Si ocurre un error durante el procesamiento.
+     */
     public static function RellenarEspaciosDerecha($cadena, $longitud)
     {
         try {
@@ -550,6 +824,14 @@ class libreria
         }
     }
 
+    /**
+     * Rellena la cadena repitiendo la variable hasta alcanzar la longitud especificada.
+     *
+     * @param string $variable  Carácter o cadena a repetir.
+     * @param int    $longitud  Longitud deseada.
+     * @return string Cadena rellenada.
+     * @throws \Exception Si ocurre un error durante el procesamiento.
+     */
     public static function RellenarEspaciosVariable($variable, $longitud)
     {
         try {
@@ -567,6 +849,14 @@ class libreria
         }
     }
 
+    /**
+     * Rellena el número con ceros a la izquierda hasta alcanzar la longitud especificada.
+     *
+     * @param int|string $numero    Número a rellenar.
+     * @param int        $longitud  Longitud deseada.
+     * @return string Número con ceros a la izquierda.
+     * @throws \Exception Si ocurre un error durante el procesamiento.
+     */
     public static function RellenarCerrosIzquierda($numero, $longitud)
     {
         try {
@@ -579,6 +869,14 @@ class libreria
         }
     }
 
+    /**
+     * Rellena el número con ceros a la derecha hasta alcanzar la longitud especificada.
+     *
+     * @param int|string $numero    Número a rellenar.
+     * @param int        $longitud  Longitud deseada.
+     * @return string Número con ceros a la derecha.
+     * @throws \Exception Si ocurre un error durante el procesamiento.
+     */
     public static function RellenarCerrosDerecha($numero, $longitud)
     {
         try {
@@ -591,6 +889,14 @@ class libreria
         }
     }
 
+    /**
+     * Rellena la cadena con ceros a la izquierda para formato IRP (Planilla Integrada).
+     *
+     * @param string|null $cadena   Cadena a rellenar (puede ser null o vacía).
+     * @param int         $longitud Longitud deseada.
+     * @return string Cadena rellenada con ceros.
+     * @throws \Exception Si ocurre un error durante el procesamiento.
+     */
     public static function RellenarIRP($cadena, $longitud)
     {
         try {
@@ -607,6 +913,13 @@ class libreria
         }
     }
 
+    /**
+     * Trunca o retorna la cadena limitada a la longitud especificada.
+     *
+     * @param string $cadena   Cadena a procesar.
+     * @param int    $longitud Longitud máxima.
+     * @return string Cadena truncada si excede la longitud.
+     */
     public static function CadenaLongitud($cadena, $longitud)
     {
         $result = $cadena;
@@ -616,6 +929,13 @@ class libreria
         return $result;
     }
 
+    /**
+     * Formatea la fecha como AAAA-MM (año-mes).
+     *
+     * @param DateTime $fecha Fecha a formatear.
+     * @return string Fecha en formato YYYY-MM.
+     * @throws \Exception Si ocurre un error durante el formateo.
+     */
     public static function FechaAAAA_MM($fecha)
     {
         try {
@@ -627,6 +947,13 @@ class libreria
         }
     }
 
+    /**
+     * Formatea la fecha como AAAAMM (añomes sin separador).
+     *
+     * @param DateTime $fecha Fecha a formatear.
+     * @return string Fecha en formato YYYYMM.
+     * @throws \Exception Si ocurre un error durante el formateo.
+     */
     public static function FechaAAAAMM($fecha)
     {
         try {
@@ -638,6 +965,13 @@ class libreria
         }
     }
 
+    /**
+     * Formatea la fecha como AAAA-MM-DD (año-mes-día).
+     *
+     * @param DateTime $fecha Fecha a formatear.
+     * @return string Fecha en formato YYYY-MM-DD.
+     * @throws \Exception Si ocurre un error durante el formateo.
+     */
     public static function FechaAAAA_MM_DD($fecha)
     {
         try {
@@ -650,6 +984,13 @@ class libreria
         }
     }
 
+    /**
+     * Formatea la fecha como AAAA-MM-DD HH:MM:SS (fecha y hora completa).
+     *
+     * @param DateTime $fecha Fecha a formatear.
+     * @return string Fecha en formato YYYY-MM-DD HH:MM:SS.
+     * @throws \Exception Si ocurre un error durante el formateo.
+     */
     public static function FechaAAAA_MM_DD_HH_MM_SS($fecha)
     {
         try {
@@ -666,7 +1007,13 @@ class libreria
         }
     }
 
-
+    /**
+     * Formatea la fecha como AAMMDD (año de 2 dígitos, mes, día).
+     *
+     * @param DateTime $fecha Fecha a formatear.
+     * @return string Fecha en formato YYMMDD.
+     * @throws \Exception Si ocurre un error durante el formateo.
+     */
     public static function FechaAAMMDD($fecha)
     {
         try {
@@ -676,7 +1023,13 @@ class libreria
         }
     }
 
-
+    /**
+     * Formatea la fecha como AAAAMMDD (año, mes y día sin separadores).
+     *
+     * @param DateTime $fecha Fecha a formatear.
+     * @return string Fecha en formato YYYYMMDD.
+     * @throws \Exception Si ocurre un error durante el formateo.
+     */
     public static function FechaAAAAMMDD($fecha)
     {
         try {
@@ -689,7 +1042,12 @@ class libreria
         }
     }
 
-
+    /**
+     * Convierte un arreglo o matriz en una cadena separada por comas.
+     *
+     * @param array $matriz Arreglo de valores a unir.
+     * @return string Cadena con los valores separados por comas.
+     */
     public static function ConvertiMatrizString($matriz)
     {
         $cadena = '';
@@ -705,6 +1063,13 @@ class libreria
         return $cadena;
     }
 
+    /**
+     * Convierte una imagen GD en bytes (contenido binario JPEG).
+     *
+     * @param resource|null $img Recurso de imagen GD.
+     * @return array Bytes de la imagen en formato JPEG, o array vacío si la imagen es null.
+     * @throws \Exception Si ocurre un error durante la conversión.
+     */
     public static function Image($img)
     {
         //Mirar si depronto funciona
@@ -726,6 +1091,12 @@ class libreria
         }
     }
 
+    /**
+     * Elimina todos los espacios en blanco de la cadena.
+     *
+     * @param string $cadena Cadena original.
+     * @return string Cadena sin espacios.
+     */
     public static function QuitarEspaciosBlancos($cadena)
     {
         $nuevacadena = str_replace(' ', '', $cadena);

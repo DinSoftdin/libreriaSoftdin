@@ -2,10 +2,13 @@
 
 namespace softdin\servicio\Enum;
 
-use ReflectionClass;
 use Illuminate\Support\Collection;
 
 
+
+/**
+ * Enumeración de valores predefinidos.
+ */
 class EnumCertificadoIngresosAportesListado
 {
     const No36 = 1;
@@ -62,21 +65,47 @@ class EnumCertificadoIngresosAportesListado
         ["id" => self::No60, "code" => "No60", "description" => "60 Valor de la retención en la fuente por ingresos laborales y de pensiones"],
     ];
 
+
+    /**
+     * Retorna la colección de elementos del Enum.
+     *
+     * @return \Illuminate\Support\Collection Colección con id, code y description.
+     */
     public static function getCollection()
     {
         return collect(self::$descriptions);
     }
 
+
+    /**
+     * Busca un elemento por su ID.
+     *
+     * @param mixed $id Identificador del elemento.
+     * @return array|null Elemento encontrado o null.
+     */
     public static function getById($id)
     {
         return self::getCollection()->firstWhere('id', $id) ?? null;
     }
 
+
+    /**
+     * Retorna todos los elementos del Enum.
+     *
+     * @return array Arreglo con todos los elementos.
+     */
     public static function getAll()
     {
         return self::$descriptions;
     }
 
+
+    /**
+     * Busca un elemento por su descripción.
+     *
+     * @param string $description Descripción del elemento.
+     * @return array|null Elemento encontrado o null.
+     */
     public static function getByDescription($description)
     {
         return self::getCollection()->firstWhere('description', $description) ?? null;
