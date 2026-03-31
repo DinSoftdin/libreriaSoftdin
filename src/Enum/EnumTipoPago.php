@@ -2,66 +2,28 @@
 
 namespace softdin\servicio\Enum;
 
-use Illuminate\Support\Collection;
-
-
 /**
- * Enumeración de valores predefinidos.
+ * Enumeración de tipos de pago.
  */
-class EnumTipoPago
+enum EnumTipoPago: int
 {
-    public const COMERCIAL = 1;
-    public const CALENDARIO = 2;
+    case COMERCIAL = 1;
+    case CALENDARIO = 2;
 
-    private static $descriptions = [
-        ['id' => self::COMERCIAL, 'code' => 'COMERCIAL', 'description' => 'Comercial'],
-        ['id' => self::CALENDARIO, 'code' => 'CALENDARIO', 'description' => 'Calendario'],
-    ];
-
-
-    /**
-     * Retorna la colección de elementos del Enum.
-     *
-     * @return \Illuminate\Support\Collection Colección con id, code y description.
-     */
-    public static function getCollection()
+    public function description(): string
     {
-        return collect(self::$descriptions);
+        return match($this) {
+            self::COMERCIAL => 'Comercial',
+            self::CALENDARIO => 'Calendario',
+        };
     }
 
-
-    /**
-     * Busca un elemento por su ID.
-     *
-     * @param mixed $id Identificador del elemento.
-     * @return array|null Elemento encontrado o null.
-     */
-    public static function getById($id)
+    public static function getAll(): array
     {
-        return self::getCollection()->firstWhere('id', $id) ?? null;
+        return array_map(fn($case) => [
+            'id' => $case->value,
+            'code' => $case->name,
+            'description' => $case->description()
+        ], self::cases());
     }
-
-
-    /**
-     * Retorna todos los elementos del Enum.
-     *
-     * @return array Arreglo con todos los elementos.
-     */
-    public static function getAll()
-    {
-        return self::$descriptions;
-    }
-
-
-    /**
-     * Busca un elemento por su descripción.
-     *
-     * @param string $description Descripción del elemento.
-     * @return array|null Elemento encontrado o null.
-     */
-    public static function getByDescription($description)
-    {
-        return self::getCollection()->firstWhere('description', $description) ?? null;
-    }
-
 }

@@ -2,71 +2,32 @@
 
 namespace softdin\servicio\Enum;
 
-use Illuminate\Support\Collection;
-
-
 /**
- * Enumeración de valores predefinidos.
+ * Enumeración de sexos.
  */
-class EnumSexo
+enum EnumSexo: int
 {
-    public const M = 1;
-    public const F = 2;
-    public const ND = 3;
+    case M = 1;
+    case F = 2;
+    case ND = 3;
+    case NDR = 4;
 
-    public const NDR = 4;
-
-    private static $descriptions = [
-        ['id' => self::M, 'code' => 'M', 'description' => 'Masculino'],
-        ['id' => self::F, 'code' => 'F', 'description' => 'Femenino'],
-        ['id' => self::ND, 'code' => 'ND', 'description' => 'No definido'],
-        ['id' => self::NDR, 'code' => 'NDR', 'description' => 'No deseo responder'],    
-    ];
-
-
-    /**
-     * Retorna la colección de elementos del Enum.
-     *
-     * @return \Illuminate\Support\Collection Colección con id, code y description.
-     */
-    public static function getCollection()
+    public function description(): string
     {
-        return collect(self::$descriptions);
+        return match($this) {
+            self::M => 'Masculino',
+            self::F => 'Femenino',
+            self::ND => 'No definido',
+            self::NDR => 'No deseo responder',
+        };
     }
 
-
-    /**
-     * Busca un elemento por su ID.
-     *
-     * @param mixed $id Identificador del elemento.
-     * @return array|null Elemento encontrado o null.
-     */
-    public static function getById($id)
+    public static function getAll(): array
     {
-        return self::getCollection()->firstWhere('id', $id) ?? null;
+        return array_map(fn($case) => [
+            'id' => $case->value,
+            'code' => $case->name,
+            'description' => $case->description()
+        ], self::cases());
     }
-
-
-    /**
-     * Retorna todos los elementos del Enum.
-     *
-     * @return array Arreglo con todos los elementos.
-     */
-    public static function getAll()
-    {
-        return self::$descriptions;
-    }
-
-
-    /**
-     * Busca un elemento por su descripción.
-     *
-     * @param string $description Descripción del elemento.
-     * @return array|null Elemento encontrado o null.
-     */
-    public static function getByDescription($description)
-    {
-        return self::getCollection()->firstWhere('description', $description) ?? null;
-    }
-
 }

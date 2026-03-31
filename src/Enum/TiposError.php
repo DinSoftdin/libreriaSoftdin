@@ -2,75 +2,27 @@
 
 namespace softdin\servicio\Enum;
 
-use Illuminate\Support\Collection;
-
-
 /**
- * Enumeración de valores predefinidos.
+ * Enumeración de tipos de error para expresiones.
  */
-class TiposError
+enum TiposError: int
 {
-    const NoDefinido = 0;
-    const Sintaxis = 1;
-    const Identificador = 2;
-    const Parentesis = 3;
-    const DivisionPorCero = 4;
-    const SinExpresion = 5;
+    case NO_DEFINIDO = 0;
+    case SINTAXIS = 1;
+    case IDENTIFICADOR = 2;
+    case PARENTESIS = 3;
+    case DIVISION_POR_CERO = 4;
+    case SIN_EXPRESION = 5;
 
-    private static $descriptions = [
-        ['id' => self::NoDefinido, 'code' => 'NoDefinido', 'description' => 'Error no definido'],
-        ['id' => self::Sintaxis, 'code' => 'Sintaxis', 'description' => 'Error de sintaxis'],
-        ['id' => self::Identificador, 'code' => 'Identificador', 'description' => 'Error de identificador'],
-        ['id' => self::Parentesis, 'code' => 'Parentesis', 'description' => 'Error de paréntesis'],
-        ['id' => self::DivisionPorCero, 'code' => 'DivisionPorCero', 'description' => 'Error de división por cero'],
-        ['id' => self::SinExpresion, 'code' => 'SinExpresion', 'description' => 'Error de expresión vacía']
-    ];
-
-
-    /**
-     * Retorna la colección de elementos del Enum.
-     *
-     * @return \Illuminate\Support\Collection Colección con id, code y description.
-     */
-    public static function getCollection()
+    public function description(): string
     {
-        return collect(self::$descriptions);
+        return match($this) {
+            self::NO_DEFINIDO => 'Error no definido',
+            self::SINTAXIS => 'Error de sintaxis',
+            self::IDENTIFICADOR => 'Error de identificador',
+            self::PARENTESIS => 'Error de paréntesis',
+            self::DIVISION_POR_CERO => 'Error de división por cero',
+            self::SIN_EXPRESION => 'Error de expresión vacía',
+        };
     }
-
-
-    /**
-     * Busca un elemento por su ID.
-     *
-     * @param mixed $id Identificador del elemento.
-     * @return array|null Elemento encontrado o null.
-     */
-    public static function getById($id)
-    {
-        return self::getCollection()->firstWhere('id', $id) ?? null;
-    }
-
-
-    /**
-     * Retorna todos los elementos del Enum.
-     *
-     * @return array Arreglo con todos los elementos.
-     */
-    public static function getAll()
-    {
-        return self::$descriptions;
-    }
-
-
-    /**
-     * Busca un elemento por su descripción.
-     *
-     * @param string $description Descripción del elemento.
-     * @return array|null Elemento encontrado o null.
-     */
-    public static function getByDescription($description)
-    {
-        return self::getCollection()->firstWhere('description', $description) ?? null;
-    }
-
-
 }

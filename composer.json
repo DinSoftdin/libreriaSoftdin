@@ -1,6 +1,6 @@
 {
     "name": "softdin/servicio",
-    "version": "12.0.44",
+    "version": "12.1.0",
     "description": "Libreria de funciones SOFTDIN",
     "type": "library",
     "license": "MIT",
@@ -16,6 +16,10 @@
         }
     ],
     "minimum-stability": "stable",
-    "require": {},
+    "require": {
+        "php": ">=8.2",
+        "nesbot/carbon": "^2.0 || ^3.0",
+        "illuminate/support": "^10.0 || ^11.0"
+    },
     "_comments": "comando para ejecutar las versiones despues de cambiar la git tag V12.0.40 -m 'Version 12.0.40'  despues ejecutar este comando git push --tags"
 }

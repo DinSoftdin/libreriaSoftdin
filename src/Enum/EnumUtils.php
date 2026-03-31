@@ -1,67 +1,56 @@
 <?php
 
+declare(strict_types=1);
+
 namespace softdin\servicio\Enum;
 
-use ReflectionClass;
-use Illuminate\Support\Collection;
+use ReflectionEnum;
 
 /**
- * Utilidades para conversión y manejo de clases Enum.
+ * Utilidades para manejo de Enums nativos de PHP.
  */
-class EnumUtils
+final readonly class EnumUtils
 {
     /**
-     * Convierte una clase Enum en un arreglo asociativo valor => descripción.
+     * Convierte un Enum en un arreglo asociativo valor => descripción.
      *
      * @param class-string $enumClass Nombre de la clase Enum.
-     * @return array<string, string> Arreglo con valor como clave y descripción como valor.
+     * @return array<int|string, string>
      */
-    public static function enumToArray($enumClass)
+    public static function enumToArray(string $enumClass): array
     {
-        $reflection = new \ReflectionClass($enumClass);
-        $enums = $reflection->getConstants();
-        $enumArray = [];
-
-        foreach ($enums as $key => $value) {
-            $enumArray[$value] = self::getDescription($enumClass, $value);
+        if (!enum_exists($enumClass)) {
+            return [];
         }
 
-        return $enumArray;
+        $array = [];
+        foreach ($enumClass::cases() as $case) {
+            $description = method_exists($case, 'description') 
+                ? $case->description() 
+                : self::getEnumDescription($case->name);
+            
+            $array[$case->value ?? $case->name] = $description;
+        }
+
+        return $array;
     }
 
     /**
-     * Obtiene la descripción legible de un valor de Enum.
-     *
-     * @param class-string $enumClass Nombre de la clase Enum.
-     * @param mixed        $value     Valor del Enum.
-     * @return string|null Descripción del valor, o null si no se encuentra.
+     * Obtiene la descripción de un caso de Enum.
      */
-    public static function getDescription($enumClass, $value)
+    public static function getDescription(\UnitEnum $case): string
     {
-        $reflection = new \ReflectionClass($enumClass);
-        $description = null;
-
-        foreach ($reflection->getConstants() as $key => $val) {
-            if ($val === $value) {
-                $description = self::getEnumDescription($key);
-                break;
-            }
-        }
-
-        return $description;
+        return method_exists($case, 'description') 
+            ? $case->description() 
+            : self::getEnumDescription($case->name);
     }
 
     /**
-     * Convierte la clave del Enum (formato SNAKE_CASE) en descripción legible.
-     *
-     * @param string $enumKey Clave del Enum (ej: TIPO_PAGO).
-     * @return string Descripción formateada (ej: Tipo pago).
+     * Convierte la clave del Enum (SNAKE_CASE) en descripción legible.
      */
-    private static function getEnumDescription($enumKey)
+    private static function getEnumDescription(string $enumKey): string
     {
         $words = explode("_", strtolower($enumKey));
-        $description = ucfirst(implode(" ", $words));
-        return $description;
+        return ucfirst(implode(" ", $words));
     }
 }
-
