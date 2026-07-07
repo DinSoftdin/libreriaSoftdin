@@ -22,8 +22,6 @@ class EnumModulosNovedades
     const NOVEDADES_SEGURIDAD_SOCIAL = 10;
     const OTROS_INGRESOS_DESCUENTOS = 11;
     const PAGOS_EXTERNOS = 12;
-    const PAGO_LABOR = 13;
-    const PAGO_PRODUCCION = 14;
     const PRESTAMOS = 15;
 
     private static $descriptions = [
@@ -39,8 +37,6 @@ class EnumModulosNovedades
         ['id' => self::NOVEDADES_RETE_FUENTE, 'code' => 32, 'description' => "Novedades Rete Fuente"],
         ['id' => self::OTROS_INGRESOS_DESCUENTOS, 'code' => 57, 'description' => "Otros Ingresos Descuentos"],
         ['id' => self::PAGOS_EXTERNOS, 'code' => 130, 'description' => "Pagos Externos"],
-        ['id' => self::PAGO_LABOR, 'code' => 89, 'description' => "Pago Labor"],
-        ['id' => self::PAGO_PRODUCCION, 'code' => 59, 'description' => "Pago Producción"],
         ['id' => self::PRESTAMOS, 'code' => 34, 'description' => "Préstamos"],
     ];
 
