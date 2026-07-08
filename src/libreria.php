@@ -562,7 +562,7 @@ final readonly class Libreria
     /**
      * Formatea la fecha como AAAAMM (añomes sin separador).
      */
-    public static function fechaAaaamm(DateTime $fecha): string
+    public static function fechaYm(DateTime $fecha): string
     {
         return $fecha->format('Ym');
     }
@@ -594,7 +594,7 @@ final readonly class Libreria
     /**
      * Formatea la fecha como AAAAMMDD (año, mes y día sin separadores).
      */
-    public static function fechaAaaammdd(DateTime $fecha): string
+    public static function fechaYmd(DateTime $fecha): string
     {
         return $fecha->format('Ymd');
     }
