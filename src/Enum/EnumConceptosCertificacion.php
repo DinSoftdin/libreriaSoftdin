@@ -37,7 +37,7 @@ class EnumConceptosCertificacion
     const CESANTIAS = 25;
     const MOTIVO_RETIRO = 26;
     const FECHA_ACTUAL_LARGO = 27;
-    const FECHA_ACTUAL_CORTO = 28;
+    const FECHA_ACTUAL_CORTO = 27;
     const DESCRIPCION_CARGO = 29;
     const SALARIO_LETRAS = 30;
     const DESCRIPCION_CONTRATO = 31;
@@ -91,7 +91,7 @@ class EnumConceptosCertificacion
         ['id' => self::CESANTIAS, 'description2' => "CESANTIAS", 'code' => '<<25>>', 'description' => '<<25>> CESANTIAS'],
         ['id' => self::MOTIVO_RETIRO, 'description2' => "MOTIVO RETIRO", 'code' => '<<26>>', 'description' => '<<26>> MOTIVO RETIRO'],
         ['id' => self::FECHA_ACTUAL_LARGO, 'description2' => "FECHA ACTUAL LARGO", 'code' => '<<27>>', 'description' => '<<27>> FECHA ACTUAL LARGO'],
-        ['id' => self::FECHA_ACTUAL_CORTO, 'description2' => "FECHA ACTUAL CORTO", 'code' => '<<28>>', 'description' => '<<28>> FECHA ACTUAL CORTO'],
+        ['id' => self::FECHA_ACTUAL_CORTO, 'description2' => "FECHA ACTUAL CORTO", 'code' => '<<27>>', 'description' => '<<27>> FECHA ACTUAL CORTO'],
         ['id' => self::DESCRIPCION_CARGO, 'description2' => "DESCRIPCION CARGO", 'code' => '<<29>>', 'description' => '<<29>> DESCRIPCION CARGO'],
         ['id' => self::SALARIO_LETRAS, 'description2' => "SALARIO LETRAS", 'code' => '<<30>>', 'description' => '<<30>> SALARIO LETRAS'],
         ['id' => self::DESCRIPCION_CONTRATO, 'description2' => "DESCRIPCION CONTRATO", 'code' => '<<31>>', 'description' => '<<31>> DESCRIPCION CONTRATO'],

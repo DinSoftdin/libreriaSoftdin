@@ -5,17 +5,20 @@ namespace softdin\servicio\Enum;
 use Illuminate\Support\Collection;
 
 
+
 /**
  * Enumeración de valores predefinidos.
  */
 class EnumTipoCentroCosto
 {
+    public const NO_APLICA = 0;
     public const UNICO = 1;
     public const TIEMPO = 2;
     public const PORCENTAJE = 3;
     public const PORCENTAJE_TIEMPO = 4;
 
     private static $descriptions = [
+        ['id' => self::NO_APLICA, 'code' => 'NO_APLICA', 'description' => 'No aplica'],
         ['id' => self::UNICO, 'code' => 'UNICO', 'description' => 'Unico'],
         ['id' => self::TIEMPO, 'code' => 'TIEMPO', 'description' => 'Tiempo'],
         ['id' => self::PORCENTAJE, 'code' => 'PORCENTAJE', 'description' => 'Porcentaje'],
