@@ -102,7 +102,7 @@ class EnumVariablesSistema
     const SubsidioTransporte = 44;
     const Teletrabajo = 109;
     const ValesAlimentacion = 92;
-    const Viatico = 102;
+    const Viatico = 128;
     const IGE_IncapacidadGeneral = 45;
     const IRP_IncapacidadAccidenteTrabajo = 46;
     const LMA_LicenciaMaternidad = 47;

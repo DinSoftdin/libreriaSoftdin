@@ -13,7 +13,7 @@ class EnumConceptosContrato
     const AREATRABAJO = 1;
     const CARGO = 2;
     const DIVISION = 3;
-    const MODALIDADSERVICIO = 4;
+    const GRUPONOMINA = 4;
     const SEDE = 5;
     const SUCURSAL = 6;
     const SUCURSALPILA = 7;
@@ -23,7 +23,7 @@ class EnumConceptosContrato
         ['id' => self::AREATRABAJO, 'code' => 'AREATRABAJO', 'description' => "Area de Trabajo"],
         ['id' => self::CARGO, 'codigo' => 'CARGO', 'description' => "Cargo"],
         ['id' => self::DIVISION, 'codigo' => 'DIVISION', 'description' => "División"],
-        ['id' => self::MODALIDADSERVICIO, 'codigo' => 'MODALIDADSERVICIO', 'description' => "Modalidad de Servicio"],
+        ['id' => self::GRUPONOMINA, 'codigo' => 'GRUPONOMINA', 'description' => "Grupo de Nómina"],
         ['id' => self::SEDE, 'codigo' => 'SEDE', 'description' => "Sede"],
         ['id' => self::SUCURSAL, 'codigo' => 'SUCURSAL', 'description' => "Sucursal"],
         ['id' => self::SUCURSALPILA, 'codigo' => 'SUCURSALPILA', 'description' => "Sucursal PILA"],
