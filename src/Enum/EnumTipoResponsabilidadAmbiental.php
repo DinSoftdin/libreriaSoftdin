@@ -6,9 +6,9 @@ use Illuminate\Support\Collection;
 
 
 /**
- * Enumeración de roles / responsabilidades por autoridad.
+ * Enumeración de tipos de responsabilidad ambiental.
  */
-class EnumRolResponsabilidades
+class EnumTipoResponsabilidadAmbiental
 {
     const AUTORIDAD_SST = 1;
     const AUTORIDAD_AMBIENTAL = 2;
