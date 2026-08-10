@@ -13,12 +13,18 @@ use Illuminate\Support\Collection;
 class EnumFlujosAprobacion
 {
     public const SOLICITUD_VACANTE = 'SOLICITUD_VACANTE';
+    public const PERFIL_CARGO = 'PERFIL_CARGO';
 
     private static $descriptions = [
         [
             'id' => self::SOLICITUD_VACANTE,
             'code' => 'SOLICITUD_VACANTE',
             'description' => 'Solicitud de Vacante',
+        ],
+        [
+            'id' => self::PERFIL_CARGO,
+            'code' => 'PERFIL_CARGO',
+            'description' => 'Perfil de Cargo',
         ],
     ];
 
