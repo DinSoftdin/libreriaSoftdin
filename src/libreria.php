@@ -283,29 +283,46 @@ final readonly class Libreria
     }
 
     /**
-     * Calcula los días contables entre dos fechas según reglas contables.
+     * Días del periodo bajo el calendario comercial de 360 días (mes de 30).
+     *
+     * Un mes recorrido de punta a punta vale 30 días, tenga 28, 30 o 31 en el
+     * calendario: el 31 no existe en el mes comercial y febrero se completa
+     * hasta 30. Un tramo que no alcanza el fin de mes cuenta sus días reales.
+     *
+     * Se recorre mes a mes sumando SÓLO la porción de ese mes. La versión
+     * anterior sumaba `totalDias($current, $fechafin)` —el tramo restante
+     * completo— una vez por cada mes iterado, así que un año daba 2366 en vez
+     * de 360. Además comparaba contra `finMes()`, que devuelve el último día a
+     * las 23:59:59, contra fechas a medianoche: la condición de fin de mes
+     * nunca se cumplía y no llegaba a normalizar nada.
      */
     public static function completarDiasContable(DateTime $fechaini, DateTime $fechafin): int
     {
-        $diatotal = 0;
-        $current = clone $fechaini;
-        while ($current <= $fechafin) {
-            $fechaFinMes = self::finMes($current);
-            if ($current <= $fechaFinMes && $fechafin >= $fechaFinMes) {
-                $diatotal += self::totalDias($current, $fechafin);
-                if ($fechaFinMes->format('d') === '31') {
-                    $diatotal -= 1;
-                } else {
-                    $d = (int)$fechaFinMes->format('d');
-                    if ($d < 30) {
-                        $diatotal += 30 - $d;
-                    }
-                }
-            } elseif ($current <= $fechafin && $fechaFinMes > $fechafin) {
-                $diatotal += self::totalDias($current, $fechafin);
-            }
-            $current->modify('+1 month');
+        $current = (clone $fechaini)->setTime(0, 0);
+        $fin = (clone $fechafin)->setTime(0, 0);
+
+        if ($fin < $current) {
+            return 0;
         }
+
+        $diatotal = 0;
+
+        while ($current <= $fin) {
+            $finMes = (clone $current)->modify('last day of this month')->setTime(0, 0);
+            $tramoFin = $finMes <= $fin ? $finMes : $fin;
+            $diaInicio = (int) $current->format('d');
+
+            if ($tramoFin < $finMes) {
+                // No llega a fin de mes: días calendario del tramo.
+                $diatotal += (int) $tramoFin->format('d') - $diaInicio + 1;
+            } else {
+                // Llega a fin de mes: el mes cierra en el día comercial 30.
+                $diatotal += 30 - $diaInicio + 1;
+            }
+
+            $current = $finMes->modify('+1 day');
+        }
+
         return $diatotal;
     }
 
@@ -341,24 +358,46 @@ final readonly class Libreria
     }
 
     /**
-     * Calcula la fecha término sumando días a la fecha de ingreso según el tipo de pago.
+     * Fecha en la que se cumplen `$dias` contados desde `$fechaingresoMV`.
+     *
+     * El día de ingreso cuenta como el primero, así que 19 días desde el 1 de
+     * enero terminan el 19, no el 20.
+     *
+     * La versión anterior nunca terminaba: la condición del `while` era
+     * `$current <= $fechatermino->modify("+$dias days")`, y `modify()` muta el
+     * objeto en cada evaluación, así que `$fechatermino` se alejaba más rápido
+     * de lo que avanzaba `$current`. Cualquier llamada con `$dias > 0` colgaba
+     * el proceso.
      */
     public static function contarDiasTP(DateTime $fechaingresoMV, int $dias, EnumTipoPago|int $tipopago): DateTime
     {
-        $current = clone $fechaingresoMV;
-        $fechatermino = clone $fechaingresoMV;
-        
-        $isComercial = $tipopago instanceof EnumTipoPago 
-            ? $tipopago === EnumTipoPago::COMERCIAL 
+        $resultado = (clone $fechaingresoMV)->setTime(0, 0);
+
+        if ($dias <= 1) {
+            return $resultado;
+        }
+
+        $isComercial = $tipopago instanceof EnumTipoPago
+            ? $tipopago === EnumTipoPago::COMERCIAL
             : $tipopago === EnumTipoPago::COMERCIAL->value;
 
-        while ($current <= $fechatermino->modify("+$dias days")) {
-            if ($isComercial) {
-                $dias += self::completarDiasContable($current, $current);
-            }
-            $current->modify("+1 day");
+        if (! $isComercial) {
+            return $resultado->modify('+'.($dias - 1).' days');
         }
-        return $fechatermino->modify("-1 day");
+
+        // Comercial: se avanza día a día hasta acumular los días del calendario
+        // de 360, que no coinciden con los del calendario real. El tope evita
+        // que un dato absurdo vuelva a colgar el proceso.
+        $tope = $dias * 2 + 62;
+
+        for ($i = 0; $i < $tope; $i++) {
+            if (self::completarDiasContable($fechaingresoMV, $resultado) >= $dias) {
+                break;
+            }
+            $resultado->modify('+1 day');
+        }
+
+        return $resultado;
     }
 
     /**
