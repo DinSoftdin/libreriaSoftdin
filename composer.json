@@ -1,6 +1,6 @@
 {
     "name": "softdin/servicio",
-    "version": "12.1.4",
+    "version": "13.0.0",
     "description": "Libreria de funciones SOFTDIN",
     "type": "library",
     "license": "MIT",

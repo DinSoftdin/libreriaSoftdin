@@ -5,16 +5,20 @@ namespace softdin\servicio\Enum;
 use Illuminate\Support\Collection;
 
 /**
- * Roles de acceso al tenant en la tabla central tenant_user.
+ * Roles de acceso al tenant.
+ *
+ * El `id` es lo que se persiste: `tenant_user.role` en la BD central y
+ * `usuarios.rol_acceso` en la de cada tenant, ambas enteras. El `code` es solo
+ * etiqueta legible para la interfaz.
  *
  * OWNER: administrador del cliente. Solo puede existir uno por tenant y es el primer usuario.
  */
 class EnumRolTenant
 {
-    public const OWNER = 'owner';
-    public const ADMIN = 'admin';
-    public const MEMBER = 'member';
-    public const VIEWER = 'viewer';
+    public const OWNER = 1;
+    public const ADMIN = 2;
+    public const MEMBER = 3;
+    public const VIEWER = 4;
 
     private static $descriptions = [
         ['id' => self::OWNER, 'code' => 'OWNER', 'description' => 'Administrador del cliente'],
@@ -38,12 +42,26 @@ class EnumRolTenant
         return self::$descriptions;
     }
 
-    public static function isValid(string $role): bool
+    /**
+     * Ids válidos de rol, en orden de privilegio.
+     *
+     * @return list<int>
+     */
+    public static function getIds(): array
     {
-        return in_array($role, [self::OWNER, self::ADMIN, self::MEMBER, self::VIEWER], true);
+        return [self::OWNER, self::ADMIN, self::MEMBER, self::VIEWER];
     }
 
-    public static function canManageTenantUsers(string $role): bool
+    /**
+     * El parámetro es `int` a propósito: con `string` la comparación estricta contra
+     * las constantes enteras nunca casaba y el método devolvía siempre `false`.
+     */
+    public static function isValid(int $role): bool
+    {
+        return in_array($role, self::getIds(), true);
+    }
+
+    public static function canManageTenantUsers(int $role): bool
     {
         return in_array($role, [self::OWNER, self::ADMIN], true);
     }
