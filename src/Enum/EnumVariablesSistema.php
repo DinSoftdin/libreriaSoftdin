@@ -37,7 +37,7 @@ class EnumVariablesSistema
     const Bonificacion = 112;
     const Bono = 118;
     const Bono_PagoAlimentacion = 120;
-    const Comision = 16;
+    const Comision = 129;
     const Compensacion_ExtraOrdinaria = 16;
     const Compensacion_Ordinaria = 117;
     const Cooperativa = 119;
@@ -92,13 +92,13 @@ class EnumVariablesSistema
     const Retefuente = 40;
     const RetroActivo_Salario = 93;
     const RetroActivo_HorasExtras = 98;
-    const RetroActivo_Vacaciones = 95;
+    const RetroActivo_Vacaciones = 130;
     const Salario = 41;
     const Saldo_Negativo = 42;
     const Saldo_Positivo = 43;
     const SancionPublica = 125;
-    const SancionPrivada = 126;
-    const Sindicato = 103;
+    const SancionPrivada = 132;
+    const Sindicato = 131;
     const SubsidioTransporte = 44;
     const Teletrabajo = 109;
     const ValesAlimentacion = 92;
