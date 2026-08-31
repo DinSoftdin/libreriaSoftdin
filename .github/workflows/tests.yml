@@ -1,0 +1,55 @@
+name: Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  schedule:
+    - cron: '0 0 * * *'
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: true
+      matrix:
+        # Un solo valor porque composer.json exige `php: ^8.4`. Si algun dia se
+        # vuelve a admitir 8.3, se agrega aqui y basta.
+        php: ['8.4']
+
+    name: PHP ${{ matrix.php }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: mbstring
+          coverage: none
+
+      - name: Validar el manifiesto
+        run: composer validate --no-check-publish
+
+      - name: Instalar dependencias
+        run: composer install --prefer-dist --no-interaction --no-progress
+
+      - name: Sintaxis de src/
+        run: find src -name '*.php' -print0 | xargs -0 -n1 -P4 php -l
+
+      # Este paso es la razon de ser del CI: corre en Linux, que si distingue
+      # mayusculas. `src/libreria.php` declaraba la clase `Libreria` y PSR-4 busca
+      # `src/Libreria.php`; en Windows y macOS no se nota y en el runner reventaba
+      # todo consumidor con «Class not found». Un `php -l` no lo detecta.
+      - name: Cada tipo de src/ se autocarga por su FQCN
+        run: php tools/verificar-autoload.php
+
+      - name: Comportamiento
+        run: php tools/verificar-comportamiento.php
