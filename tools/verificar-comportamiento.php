@@ -17,6 +17,7 @@ use softdin\servicio\Enum\EnumIncapacidades;
 use softdin\servicio\Enum\EnumNE_TipoHora;
 use softdin\servicio\Enum\EnumTipoHora;
 use softdin\servicio\Enum\EnumTipoPago;
+use softdin\servicio\Enum\EnumVariablesSistema;
 use softdin\servicio\Libreria;
 
 $fallos = [];
@@ -90,6 +91,40 @@ comprobar(
     'EnumTipoHora::getById devuelve el code correcto',
     'RNDF',
     EnumTipoHora::getById(EnumTipoHora::RNDF)['code'] ?? null
+);
+
+// --- Ids unicos en EnumVariablesSistema -----------------------------------
+// El id se persiste en concepto_novedades.variablesistema y el resolver de conceptos
+// consulta por ese valor quedandose con la primera coincidencia. Dos constantes con el
+// mismo id hacen que pueda elegir el concepto equivocado en silencio, y eso alcanzo al
+// calculo de retencion en la fuente. Ver DinSoftdin/libreriaSoftdinJS#2.
+$porId = [];
+foreach ((new ReflectionClass(EnumVariablesSistema::class))->getConstants() as $nombre => $id) {
+    if (! is_int($id)) {
+        continue;
+    }
+    $porId[$id][] = $nombre;
+}
+$repetidos = array_filter($porId, static fn (array $nombres): bool => count($nombres) > 1);
+comprobar('EnumVariablesSistema no repite ids', [], array_map(
+    static fn (array $nombres): string => implode(' / ', $nombres),
+    $repetidos
+));
+
+// La coleccion tiene que reflejar lo mismo: un id por entrada.
+$idsColeccion = array_column(EnumVariablesSistema::getAll(), 'id');
+comprobar(
+    'EnumVariablesSistema::getAll no repite ids',
+    count($idsColeccion),
+    count(array_unique($idsColeccion))
+);
+
+// El 16 es Compensacion_ExtraOrdinaria, no Comision: asi lo siembra la migracion canonica
+// de conceptos (concepto 3), y 'Comisiones Varias' se siembra sin variablesistema.
+comprobar(
+    'el id 16 resuelve a Compensacion_ExtraOrdinaria',
+    'Compensacion_ExtraOrdinaria',
+    EnumVariablesSistema::getById(16)['code'] ?? null
 );
 
 // --- Resultado ------------------------------------------------------------
