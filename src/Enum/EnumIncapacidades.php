@@ -67,6 +67,8 @@ class EnumIncapacidades
      */
     public static function getCollection()
     {
+        self::boot();
+
         return collect(self::$descriptions);
     }
 
@@ -90,6 +92,8 @@ class EnumIncapacidades
      */
     public static function getAll()
     {
+        self::boot();
+
         return self::$descriptions;
     }
 
