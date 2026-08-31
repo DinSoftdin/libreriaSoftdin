@@ -21,17 +21,33 @@ class EnumTipoHora
     const HEDDF = EnumVariablesSistema::HoraExtraDominicalDiurna;
     const HENDF = EnumVariablesSistema::HoraExtraDominicalNocturna;
 
-    private static $descriptions = [
-        ['id' => self::ORD, 'code' => 'ORD', 'description' => EnumVariablesSistema::getById(self::ORD)->description],
-        ['id' => self::RN, 'code' => 'RN', 'description' => EnumVariablesSistema::getById(self::RN)->description],
-        ['id' => self::RNE, 'code' => 'RNE', 'description' => EnumVariablesSistema::getById(self::RNE)->description],
-        ['id' => self::HED, 'code' => 'HED', 'description' => EnumVariablesSistema::getById(self::HED)->description],
-        ['id' => self::HEN, 'code' => 'HEN', 'description' => EnumVariablesSistema::getById(self::HEN)->description],
-        ['id' => self::DF, 'code' => 'DF', 'description' => EnumVariablesSistema::getById(self::DF)->description],
-        ['id' => self::RNDF, 'code' => 'RNDF', 'description' => EnumVariablesSistema::getById(self::RNDF)->description],
-        ['id' => self::HEDDF, 'code' => 'HEDDF', 'description' => EnumVariablesSistema::getById(self::HEDDF)->description],
-        ['id' => self::HENDF, 'code' => 'HENDF', 'description' => EnumVariablesSistema::getById(self::HENDF)->description],
-    ];
+    /**
+     * Las descripciones siguen saliendo de EnumVariablesSistema: este enum es un
+     * subconjunto de aquel, y esa derivacion es lo que se quiere conservar. Lo que
+     * cambia es donde se resuelve. Era una propiedad estatica, y PHP exige que su
+     * inicializador sea una expresion constante: con la llamada a getById() dentro,
+     * la clase no se podia ni cargar («Constant expression contains invalid
+     * operations»). Ahora se resuelve al pedirla.
+     *
+     * Tambien se corrige el acceso: getById() devuelve un array, no un objeto, asi
+     * que era ['description'] y no ->description.
+     *
+     * @return list<array{id: int, code: string, description: string}>
+     */
+    private static function descriptions(): array
+    {
+        return [
+            ['id' => self::ORD, 'code' => 'ORD', 'description' => EnumVariablesSistema::getById(self::ORD)['description'] ?? 'ORD'],
+            ['id' => self::RN, 'code' => 'RN', 'description' => EnumVariablesSistema::getById(self::RN)['description'] ?? 'RN'],
+            ['id' => self::RNE, 'code' => 'RNE', 'description' => EnumVariablesSistema::getById(self::RNE)['description'] ?? 'RNE'],
+            ['id' => self::HED, 'code' => 'HED', 'description' => EnumVariablesSistema::getById(self::HED)['description'] ?? 'HED'],
+            ['id' => self::HEN, 'code' => 'HEN', 'description' => EnumVariablesSistema::getById(self::HEN)['description'] ?? 'HEN'],
+            ['id' => self::DF, 'code' => 'DF', 'description' => EnumVariablesSistema::getById(self::DF)['description'] ?? 'DF'],
+            ['id' => self::RNDF, 'code' => 'RNDF', 'description' => EnumVariablesSistema::getById(self::RNDF)['description'] ?? 'RNDF'],
+            ['id' => self::HEDDF, 'code' => 'HEDDF', 'description' => EnumVariablesSistema::getById(self::HEDDF)['description'] ?? 'HEDDF'],
+            ['id' => self::HENDF, 'code' => 'HENDF', 'description' => EnumVariablesSistema::getById(self::HENDF)['description'] ?? 'HENDF'],
+        ];
+    }
 
 
     /**
@@ -41,7 +57,7 @@ class EnumTipoHora
      */
     public static function getCollection()
     {
-        return collect(self::$descriptions);
+        return collect(self::descriptions());
     }
 
 
@@ -64,7 +80,7 @@ class EnumTipoHora
      */
     public static function getAll()
     {
-        return self::$descriptions;
+        return self::descriptions();
     }
 
 

@@ -18,15 +18,28 @@ class EnumNE_TipoHora
     const HENDF = EnumVariablesSistema::HoraExtraDominicalNocturna;
     const HRNDF = EnumVariablesSistema::RecargoNocturnoDominical;
 
-    private static $descriptions = [
-        ['id' => self::HED, 'code' => '1', 'description' => EnumVariablesSistema::getById(EnumVariablesSistema::HoraExtraDiurna)->$description],
-        ['id' => self::HEN, 'code' => '2', 'description' => EnumVariablesSistema::getById(EnumVariablesSistema::HoraExtraNocturna)->$description],
-        ['id' => self::HRN, 'code' => '3', 'description' => EnumVariablesSistema::getById(EnumVariablesSistema::RecargoNocturno)->$description],
-        ['id' => self::HRDDF, 'code' => '4', 'description' => EnumVariablesSistema::getById(EnumVariablesSistema::HoraDominical)->$description],
-        ['id' => self::HEDDF, 'code' => '5', 'description' => EnumVariablesSistema::getById(EnumVariablesSistema::HoraExtraDominicalDiurna)->$description],
-        ['id' => self::HENDF, 'code' => '6', 'description' => EnumVariablesSistema::getById(EnumVariablesSistema::HoraExtraDominicalNocturna)->$description],
-        ['id' => self::HRNDF, 'code' => '7', 'description' => EnumVariablesSistema::getById(EnumVariablesSistema::RecargoNocturnoDominical)->$description]
-    ];
+    /**
+     * Es un metodo y no una propiedad estatica a proposito: las descripciones se
+     * derivan de EnumVariablesSistema, y PHP no admite llamadas a metodos en el
+     * inicializador de una propiedad estatica, que tiene que ser una expresion
+     * constante. Con la propiedad la clase no se podia ni cargar:
+     * «Constant expression contains invalid operations». La version JS de esta
+     * misma enumeracion si funciona asi, porque JavaScript lo permite.
+     *
+     * @return list<array{id: int, code: string, description: string}>
+     */
+    private static function descriptions(): array
+    {
+        return [
+            ['id' => self::HED, 'code' => '1', 'description' => EnumVariablesSistema::getById(self::HED)['description']],
+            ['id' => self::HEN, 'code' => '2', 'description' => EnumVariablesSistema::getById(self::HEN)['description']],
+            ['id' => self::HRN, 'code' => '3', 'description' => EnumVariablesSistema::getById(self::HRN)['description']],
+            ['id' => self::HRDDF, 'code' => '4', 'description' => EnumVariablesSistema::getById(self::HRDDF)['description']],
+            ['id' => self::HEDDF, 'code' => '5', 'description' => EnumVariablesSistema::getById(self::HEDDF)['description']],
+            ['id' => self::HENDF, 'code' => '6', 'description' => EnumVariablesSistema::getById(self::HENDF)['description']],
+            ['id' => self::HRNDF, 'code' => '7', 'description' => EnumVariablesSistema::getById(self::HRNDF)['description']],
+        ];
+    }
 
 
     /**
@@ -36,7 +49,7 @@ class EnumNE_TipoHora
      */
     public static function getCollection()
     {
-        return collect(self::$descriptions);
+        return collect(self::descriptions());
     }
 
 
@@ -59,7 +72,7 @@ class EnumNE_TipoHora
      */
     public static function getAll()
     {
-        return self::$descriptions;
+        return self::descriptions();
     }
 
 
