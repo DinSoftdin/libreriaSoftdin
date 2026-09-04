@@ -82,6 +82,10 @@ class EnumNE_TipoDocumento
         return self::getCollection()->firstWhere('description', $description) ?? null;
     }
 
+    // Desde la alineacion de ids este mapeo es la identidad: EnumTipoContrato y
+    // EnumNE_TipoContrato usan los mismos numeros del 1 al 5. Se conserva escrito
+    // nombre por nombre a proposito: si alguna vez la DIAN mueve un codigo, aqui se
+    // ve cual, y pasar el id directo volveria a mentir en silencio.
     // public static function NE_TipoContrato(EnumTipoContrato $tipocontrato)
     // {
     //     $mapeo = [
