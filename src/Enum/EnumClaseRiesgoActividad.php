@@ -8,11 +8,11 @@ namespace softdin\servicio\Enum;
  */
 enum EnumClaseRiesgoActividad: int
 {
-    case CLASE_I = 1;
-    case CLASE_II = 2;
-    case CLASE_III = 3;
-    case CLASE_IV = 4;
-    case CLASE_V = 5;
+    const CLASE_I = 1;
+    const CLASE_II = 2;
+    const CLASE_III = 3;
+    const CLASE_IV = 4;
+    const CLASE_V = 5;
 
     public function description(): string
     {

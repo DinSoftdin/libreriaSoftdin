@@ -7,8 +7,8 @@ namespace softdin\servicio\Enum;
  */
 enum EnumTipoPago: int
 {
-    case COMERCIAL = 1;
-    case CALENDARIO = 2;
+    const COMERCIAL = 1;
+    const CALENDARIO = 2;
 
     public function description(): string
     {

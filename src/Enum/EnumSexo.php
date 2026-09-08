@@ -7,10 +7,10 @@ namespace softdin\servicio\Enum;
  */
 enum EnumSexo: int
 {
-    case M = 1;
-    case F = 2;
-    case ND = 3;
-    case NDR = 4;
+    const M = 1;
+    const F = 2;
+    const ND = 3;
+    const NDR = 4;
 
     public function description(): string
     {

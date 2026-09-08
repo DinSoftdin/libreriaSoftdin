@@ -7,13 +7,13 @@ namespace softdin\servicio\Enum;
  */
 enum EnumEstadoCivil: int
 {
-    case NO_DEFINIDO = 0;
-    case SOLTERO = 1;
-    case CASADO = 2;
-    case DIVORCIADO = 3;
-    case SEPARADO = 4;
-    case VIUDO = 5;
-    case UNION_LIBRE = 6;
+    const NO_DEFINIDO = 0;
+    const SOLTERO = 1;
+    const CASADO = 2;
+    const DIVORCIADO = 3;
+    const SEPARADO = 4;
+    const VIUDO = 5;
+    const UNION_LIBRE = 6;
 
     public function description(): string
     {

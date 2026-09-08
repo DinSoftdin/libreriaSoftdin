@@ -34,7 +34,7 @@ class EnumTipoRegistroHistorial
 
     private static $descriptions = [
         ['id' => self::CONTRATACION, 'code' => 'CONTRATACION', 'description' => "Contratación"],
-        ['id' => self::PRORROGA, 'code' => 'PRORROGA', 'description' => "Prorroga"],
+        ['id' => self::PRORROGA, 'code' => 'PRORROGA', 'description' => "Prórroga"],
         ['id' => self::TERMINO, 'code' => 'TERMINO', 'description' => "Termino"],
         ['id' => self::NOVEDADPILA, 'code' => 'NOVEDADPILA', 'description' => "Novedades de PILA"],
         ['id' => self::CONVERSION, 'code' => 'CONVERSION', 'description' => "Conversion de tipo"]

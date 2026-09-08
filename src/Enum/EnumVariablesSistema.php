@@ -119,28 +119,6 @@ class EnumVariablesSistema
     const Dia_NoTrabajado = 94;
     const LRM_LicenciaRemunerada = 106;
     const CuentaPorPagar = 58;
-    const Cambio_TipoCotizante = 60;
-    const Cambio_SubTipoCotizante = 61;
-    const Cambio_CuentaBancaria = 62;
-    const Cambio_RubroContable = 63;
-    const Cambio_Sucursal = 64;
-    const Cambio_SucursalPILA = 91;
-    const Cambio_Sede = 65;
-    const Cambio_Division = 66;
-    const Cambio_TipoPagoSubTransporte = 67;
-    const Cambio_Cargo = 68;
-    const Cambio_Contrato = 69;
-    const Cambio_CajaCompensacion = 70;
-    const Cambio_FondoCesantias = 71;
-    const Cambio_PorcentajeARL = 73;
-    const Cambio_Extranjero = 75;
-    const Cambio_ResideExterior = 76;
-    const Cambio_ReteFuente = 97;
-    const Cambio_PoseeCuenta = 77;
-    const Cambio_TipoPago = 78;
-    const Cambio_AreaTrabajo = 79;
-    const Cambio_Activo = 80;
-    const Cambio_Revincular = 81;
 
     private static $descriptions = [
         ["id" => self::AFC_Cuenta, "code" => "AFC_Cuenta", "description" => "OTROS"],
@@ -252,28 +230,6 @@ class EnumVariablesSistema
         ["id" => self::Dia_NoTrabajado, "code" => "Dia_NoTrabajado", "description" => "PLANILLA_UNICA"],
         ["id" => self::LRM_LicenciaRemunerada, "code" => "LRM_LicenciaRemunerada", "description" => "PLANILLA_UNICA"],
         ["id" => self::CuentaPorPagar, "code" => "CuentaPorPagar", "description" => "OTROS"],
-        ["id" => self::Cambio_TipoCotizante, "code" => "Cambio_TipoCotizante", "description" => "CAMBIOS_V"],
-        ["id" => self::Cambio_SubTipoCotizante, "code" => "Cambio_SubTipoCotizante", "description" => "CAMBIOS_V"],
-        ["id" => self::Cambio_CuentaBancaria, "code" => "Cambio_CuentaBancaria", "description" => "CAMBIOS_V"],
-        ["id" => self::Cambio_RubroContable, "code" => "Cambio_RubroContable", "description" => "CAMBIOS_C"],
-        ["id" => self::Cambio_Sucursal, "code" => "Cambio_Sucursal", "description" => "CAMBIOS_C"],
-        ["id" => self::Cambio_SucursalPILA, "code" => "Cambio_SucursalPILA", "description" => "CAMBIOS_C"],
-        ["id" => self::Cambio_Sede, "code" => "Cambio_Sede", "description" => "CAMBIOS_C"],
-        ["id" => self::Cambio_Division, "code" => "Cambio_Division", "description" => "CAMBIOS_C"],
-        ["id" => self::Cambio_TipoPagoSubTransporte, "code" => "Cambio_TipoPagoSubTransporte", "description" => "CAMBIOS_C"],
-        ["id" => self::Cambio_Activo, "code" => "Cambio_Activo", "description" => "CAMBIOS_C"],
-        ["id" => self::Cambio_AreaTrabajo, "code" => "Cambio_AreaTrabajo", "description" => "CAMBIOS_C"],
-        ["id" => self::Cambio_CajaCompensacion, "code" => "Cambio_CajaCompensacion", "description" => "CAMBIOS_C"],
-        ["id" => self::Cambio_Contrato, "code" => "Cambio_Contrato", "description" => "CAMBIOS_C"],
-        ["id" => self::Cambio_Extranjero, "code" => "Cambio_Extranjero", "description" => "CAMBIOS_C"],
-        ["id" => self::Cambio_FondoCesantias, "code" => "Cambio_FondoCesantias", "description" => "CAMBIOS_C"],
-        ["id" => self::Cambio_PorcentajeARL, "code" => "Cambio_PorcentajeARL", "description" => "CAMBIOS_C"],
-        ["id" => self::Cambio_Cargo, "code" => "Cambio_Cargo", "description" => "CAMBIOS_C"],
-        ["id" => self::Cambio_PoseeCuenta, "code" => "Cambio_PoseeCuenta", "description" => "CAMBIOS_C"],
-        ["id" => self::Cambio_ResideExterior, "code" => "Cambio_ResideExterior", "description" => "CAMBIOS_C"],
-        ["id" => self::Cambio_ReteFuente, "code" => "Cambio_ReteFuente", "description" => "CAMBIOS_C"],
-        ["id" => self::Cambio_Revincular, "code" => "Cambio_Revincular", "description" => "CAMBIOS_C"],
-        ["id" => self::Cambio_TipoPago, "code" => "Cambio_TipoPago", "description" => "CAMBIOS_C"],
     ];
 
 
