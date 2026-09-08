@@ -346,9 +346,7 @@ final readonly class Libreria
 
             $dias = self::totalDias($fechainicio, $fechatermino);
             
-            $isComercial = $tipopago instanceof EnumTipoPago 
-                ? $tipopago === EnumTipoPago::COMERCIAL 
-                : $tipopago === EnumTipoPago::COMERCIAL->value;
+            $isComercial = $tipopago === EnumTipoPago::COMERCIAL;
 
             if ($isComercial) {
                 $dias = self::completarDiasContable($fechainicio, $fechatermino);
@@ -377,9 +375,7 @@ final readonly class Libreria
             return $resultado;
         }
 
-        $isComercial = $tipopago instanceof EnumTipoPago
-            ? $tipopago === EnumTipoPago::COMERCIAL
-            : $tipopago === EnumTipoPago::COMERCIAL->value;
+        $isComercial = $tipopago === EnumTipoPago::COMERCIAL;
 
         if (! $isComercial) {
             return $resultado->modify('+'.($dias - 1).' days');
