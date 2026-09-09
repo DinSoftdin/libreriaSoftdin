@@ -2,10 +2,23 @@
 
 namespace softdin\servicio\Enum;
 
+use Illuminate\Support\Collection;
+
 /**
  * Enumeración de estados civiles.
+ *
+ * Clase con constantes y no `enum`, como el resto del directorio y como su
+ * espejo en `softdinlibreriajs`. `EnumEstadoCivil::CASADO` es el entero 2 y se
+ * guarda tal cual en la columna.
+ *
+ * Cada elemento lleva **cinco** campos y no tres: además de `description`, la
+ * traducción al inglés y el color con el que se pinta la etiqueta en pantalla.
+ * Los tres venían de métodos de instancia (`description()`,
+ * `descriptionIngles()`, `color()`) y aquí viven en la misma fila, que es como
+ * lo hace el resto de la librería: quien pinta un selector recibe todo de una
+ * sola llamada.
  */
-enum EnumEstadoCivil: int
+class EnumEstadoCivil
 {
     const NO_DEFINIDO = 0;
     const SOLTERO = 1;
@@ -15,53 +28,55 @@ enum EnumEstadoCivil: int
     const VIUDO = 5;
     const UNION_LIBRE = 6;
 
-    public function description(): string
+    private static $descriptions = [
+        ['id' => self::NO_DEFINIDO, 'code' => 'NO_DEFINIDO', 'description' => "NO Definido", 'descriptionIngles' => "Not Defined", 'color' => 'danger'],
+        ['id' => self::SOLTERO, 'code' => 'SOLTERO', 'description' => "Soltero(A)", 'descriptionIngles' => "Single", 'color' => 'primary'],
+        ['id' => self::CASADO, 'code' => 'CASADO', 'description' => "Casado(A)", 'descriptionIngles' => "Married", 'color' => 'warning'],
+        ['id' => self::DIVORCIADO, 'code' => 'DIVORCIADO', 'description' => "Divorciado(A)", 'descriptionIngles' => "Divorced", 'color' => 'success'],
+        ['id' => self::SEPARADO, 'code' => 'SEPARADO', 'description' => "Separado(A)", 'descriptionIngles' => "Separated", 'color' => 'indigo'],
+        ['id' => self::VIUDO, 'code' => 'VIUDO', 'description' => "Viudo(A)", 'descriptionIngles' => "Widowed", 'color' => 'fuchsia'],
+        ['id' => self::UNION_LIBRE, 'code' => 'UNION_LIBRE', 'description' => "Union Libre", 'descriptionIngles' => "Common-law", 'color' => 'emerald'],
+    ];
+
+    /**
+     * Retorna la colección de elementos del Enum.
+     *
+     * @return \Illuminate\Support\Collection Colección con id, code, description, descriptionIngles y color.
+     */
+    public static function getCollection()
     {
-        return match($this) {
-            self::NO_DEFINIDO => 'NO Definido',
-            self::SOLTERO => 'Soltero(A)',
-            self::CASADO => 'Casado(A)',
-            self::DIVORCIADO => 'Divorciado(A)',
-            self::SEPARADO => 'Separado(A)',
-            self::VIUDO => 'Viudo(A)',
-            self::UNION_LIBRE => 'Union Libre',
-        };
+        return collect(self::$descriptions);
     }
 
-    public function descriptionIngles(): string
+    /**
+     * Busca un elemento por su ID.
+     *
+     * @param  mixed  $id  Identificador del elemento.
+     * @return array|null Elemento encontrado o null.
+     */
+    public static function getById($id)
     {
-        return match($this) {
-            self::NO_DEFINIDO => 'Not Defined',
-            self::SOLTERO => 'Single',
-            self::CASADO => 'Married',
-            self::DIVORCIADO => 'Divorced',
-            self::SEPARADO => 'Separated',
-            self::VIUDO => 'Widowed',
-            self::UNION_LIBRE => 'Common-law',
-        };
+        return self::getCollection()->firstWhere('id', $id) ?? null;
     }
 
-    public function color(): string
+    /**
+     * Retorna todos los elementos del Enum.
+     *
+     * @return array Arreglo con todos los elementos.
+     */
+    public static function getAll()
     {
-        return match($this) {
-            self::SOLTERO => 'primary',
-            self::CASADO => 'warning',
-            self::DIVORCIADO => 'success',
-            self::SEPARADO => 'indigo',
-            self::VIUDO => 'fuchsia',
-            self::UNION_LIBRE => 'emerald',
-            self::NO_DEFINIDO => 'danger',
-        };
+        return self::$descriptions;
     }
 
-    public static function getAll(): array
+    /**
+     * Busca un elemento por su descripción.
+     *
+     * @param  string  $description  Descripción del elemento.
+     * @return array|null Elemento encontrado o null.
+     */
+    public static function getByDescription($description)
     {
-        return array_map(fn($case) => [
-            'id' => $case->value,
-            'code' => $case->name,
-            'description' => $case->description(),
-            'descriptionIngles' => $case->descriptionIngles(),
-            'color' => $case->color(),
-        ], self::cases());
+        return self::getCollection()->firstWhere('description', $description) ?? null;
     }
 }
