@@ -2,28 +2,65 @@
 
 namespace softdin\servicio\Enum;
 
+use Illuminate\Support\Collection;
+
 /**
  * Enumeración de tipos de pago.
+ *
+ * Clase con constantes y no `enum`, como el resto del directorio y como su
+ * espejo en `softdinlibreriajs`. `EnumTipoPago::COMERCIAL` es el entero 1, así
+ * que se compara directamente con el `tipopago` que viene de la base de datos —
+ * sin `->value` de por medio.
  */
-enum EnumTipoPago: int
+class EnumTipoPago
 {
-    case COMERCIAL = 1;
-    case CALENDARIO = 2;
+    const COMERCIAL = 1;
+    const CALENDARIO = 2;
 
-    public function description(): string
+    private static $descriptions = [
+        ['id' => self::COMERCIAL, 'code' => 'COMERCIAL', 'description' => "Comercial"],
+        ['id' => self::CALENDARIO, 'code' => 'CALENDARIO', 'description' => "Calendario"],
+    ];
+
+    /**
+     * Retorna la colección de elementos del Enum.
+     *
+     * @return \Illuminate\Support\Collection Colección con id, code y description.
+     */
+    public static function getCollection()
     {
-        return match($this) {
-            self::COMERCIAL => 'Comercial',
-            self::CALENDARIO => 'Calendario',
-        };
+        return collect(self::$descriptions);
     }
 
-    public static function getAll(): array
+    /**
+     * Busca un elemento por su ID.
+     *
+     * @param  mixed  $id  Identificador del elemento.
+     * @return array|null Elemento encontrado o null.
+     */
+    public static function getById($id)
     {
-        return array_map(fn($case) => [
-            'id' => $case->value,
-            'code' => $case->name,
-            'description' => $case->description()
-        ], self::cases());
+        return self::getCollection()->firstWhere('id', $id) ?? null;
+    }
+
+    /**
+     * Retorna todos los elementos del Enum.
+     *
+     * @return array Arreglo con todos los elementos.
+     */
+    public static function getAll()
+    {
+        return self::$descriptions;
+    }
+
+    /**
+     * Busca un elemento por su descripción.
+     *
+     * @param  string  $description  Descripción del elemento.
+     * @return array|null Elemento encontrado o null.
+     */
+    public static function getByDescription($description)
+    {
+        return self::getCollection()->firstWhere('description', $description) ?? null;
     }
 }

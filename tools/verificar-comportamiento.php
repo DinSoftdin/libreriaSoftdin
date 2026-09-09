@@ -55,7 +55,7 @@ comprobar(
 comprobar(
     'contarDias acepta el enum como entero',
     30,
-    Libreria::contarDias($eneroIni, $eneroFin, $eneroIni, $eneroFin, EnumTipoPago::COMERCIAL->value)
+    Libreria::contarDias($eneroIni, $eneroFin, $eneroIni, $eneroFin, EnumTipoPago::COMERCIAL)
 );
 comprobar('totalDias de enero son los del calendario', 31, Libreria::totalDias($eneroIni, $eneroFin));
 
