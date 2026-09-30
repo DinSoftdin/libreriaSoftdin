@@ -119,6 +119,7 @@ class EnumVariablesSistema
     const Dia_NoTrabajado = 94;
     const LRM_LicenciaRemunerada = 106;
     const CuentaPorPagar = 58;
+    const ARL_PAGA_DIREC = 133;
 
     private static $descriptions = [
         ["id" => self::AFC_Cuenta, "code" => "AFC_Cuenta", "description" => "OTROS"],
@@ -230,6 +231,7 @@ class EnumVariablesSistema
         ["id" => self::Dia_NoTrabajado, "code" => "Dia_NoTrabajado", "description" => "PLANILLA_UNICA"],
         ["id" => self::LRM_LicenciaRemunerada, "code" => "LRM_LicenciaRemunerada", "description" => "PLANILLA_UNICA"],
         ["id" => self::CuentaPorPagar, "code" => "CuentaPorPagar", "description" => "OTROS"],
+        ["id" => self::ARL_PAGA_DIREC, "code" => "ARL_PAGA_DIREC", "description" => "OTROS"],
     ];
 
 
