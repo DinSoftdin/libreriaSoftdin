@@ -78,6 +78,8 @@ class EnumVariablesSistema
     const Pago_IncapIGE_EPS = 31;
     const Pago_IncapIGE_Patron = 32;
     const Pago_IncapLMA_EPS = 33;
+    // Licencia de paternidad (CST art. 236 par. 2, Ley 2114 de 2021): la reconoce la EPS, como la de maternidad.
+    const Pago_IncapLPA_EPS = 133;
     const Prestamos = 34;
     const Provision_Cesantias = 35;
     const Provision_IntCesantias = 36;
@@ -106,6 +108,8 @@ class EnumVariablesSistema
     const IGE_IncapacidadGeneral = 45;
     const IRP_IncapacidadAccidenteTrabajo = 46;
     const LMA_LicenciaMaternidad = 47;
+    // En la PILA va en el campo 26 (LMA) con «P» y no con «X» (Res. 2388 de 2016, valor creado por la Res. 1271 de 2023).
+    const LPA_LicenciaPaternidad = 134;
     const SLN_SuspencionTemporalLicenciaNoRemunerada = 48;
     const VST_VariacionTransitoriaSalario = 49;
     const VSP_VariacionPermanenteSalario = 50;
@@ -189,6 +193,7 @@ class EnumVariablesSistema
         ["id" => self::Pago_IncapIGE_EPS, "code" => "Pago_IncapIGE_EPS", "description" => "OTROS"],
         ["id" => self::Pago_IncapIGE_Patron, "code" => "Pago_IncapIGE_Patron", "description" => "OTROS"],
         ["id" => self::Pago_IncapLMA_EPS, "code" => "Pago_IncapLMA_EPS", "description" => "OTROS"],
+        ["id" => self::Pago_IncapLPA_EPS, "code" => "Pago_IncapLPA_EPS", "description" => "OTROS"],
         ["id" => self::Prestamos, "code" => "Prestamos", "description" => "OTROS"],
         ["id" => self::Provision_Cesantias, "code" => "Provision_Cesantias", "description" => "PROV_PREST"],
         ["id" => self::Provision_IntCesantias, "code" => "Provision_IntCesantias", "description" => "PROV_PREST"],
@@ -217,6 +222,7 @@ class EnumVariablesSistema
         ["id" => self::IGE_IncapacidadGeneral, "code" => "IGE_IncapacidadGeneral", "description" => "PLANILLA_UNICA"],
         ["id" => self::IRP_IncapacidadAccidenteTrabajo, "code" => "IRP_IncapacidadAccidenteTrabajo", "description" => "PLANILLA_UNICA"],
         ["id" => self::LMA_LicenciaMaternidad, "code" => "LMA_LicenciaMaternidad", "description" => "PLANILLA_UNICA"],
+        ["id" => self::LPA_LicenciaPaternidad, "code" => "LPA_LicenciaPaternidad", "description" => "PLANILLA_UNICA"],
         ["id" => self::SLN_SuspencionTemporalLicenciaNoRemunerada, "code" => "SLN_SuspencionTemporalLicenciaNoRemunerada", "description" => "PLANILLA_UNICA"],
         ["id" => self::VST_VariacionTransitoriaSalario, "code" => "VST_VariacionTransitoriaSalario", "description" => "PLANILLA_UNICA"],
         ["id" => self::VSP_VariacionPermanenteSalario, "code" => "VSP_VariacionPermanenteSalario", "description" => "PLANILLA_UNICA"],
