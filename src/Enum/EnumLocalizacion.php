@@ -23,6 +23,7 @@ class EnumLocalizacion
     const LINKEDIN = 11;
     const YOUTUBE = 12;
     const GEOLOCALIZACION = 13;
+    const EMAIL_EMPRESA = 14;
 
     private static $descriptions = [
         ['id' => self::TELEFONO, 'code' => 'TELEFONO', 'description' => "Teléfono"],
@@ -37,7 +38,8 @@ class EnumLocalizacion
         ['id' => self::TWITTER, 'code' => 'TWITTER', 'description' => "Twitter"],
         ['id' => self::LINKEDIN, 'code' => 'LINKEDIN', 'description' => "LinkedIn"],
         ['id' => self::YOUTUBE, 'code' => 'YOUTUBE', 'description' => "YouTube"],
-        ['id' => self::GEOLOCALIZACION, 'code' => 'GEOLOCALIZACION', 'description' => "Geolocalización"]
+        ['id' => self::GEOLOCALIZACION, 'code' => 'GEOLOCALIZACION', 'description' => "Geolocalización"],
+        ['id' => self::EMAIL_EMPRESA, 'code' => 'EMAIL_EMPRESA', 'description' => "Email Empresa"]
     ];
 
 
