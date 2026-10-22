@@ -62,6 +62,8 @@ class EnumConceptosCertificacion
     const CELULAR = 50;
     const EMAIL = 51;
     const TEL_EMERGENCIA = 52;
+    // 53 a 71: variables propias de los documentos del contrato en softdin-api (VariablesDocumentoContrato).
+    const FUNCIONES_PERFIL = 72;
 
     private static $descriptions = [
         ['id' => self::NIT, 'description2' => "NIT", 'code' => '<<01>>', 'description' => '<<01>> NIT'],
@@ -116,6 +118,7 @@ class EnumConceptosCertificacion
         ['id' => self::CELULAR, 'description2' => "CELULAR", 'code' => '<<50>>', 'description' => '<<50>> CELULAR'],
         ['id' => self::EMAIL, 'description2' => "EMAIL", 'code' => '<<51>>', 'description' => '<<51>> EMAIL'],
         ['id' => self::TEL_EMERGENCIA, 'description2' => "TEL EMERGENCIA", 'code' => '<<52>>', 'description' => '<<52>> TEL EMERGENCIA'],
+        ['id' => self::FUNCIONES_PERFIL, 'description2' => "FUNCIONES PERFIL", 'code' => '<<72>>', 'description' => '<<72>> FUNCIONES PERFIL'],
     ];
 
 
